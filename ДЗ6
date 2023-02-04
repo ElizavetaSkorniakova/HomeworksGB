@@ -1,0 +1,73 @@
+int getUserData(string message)
+{
+    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+    Console.WriteLine(message);
+    Console.ResetColor();
+    int userData = int.Parse(Console.ReadLine()!);
+    return userData;
+}
+
+void beautifullDisplayArray(int[] array)
+{
+  int count = array.Length;
+  int index = 0;
+  Console.Write("[");
+  while(index < count){
+    Console.Write(array[index]);
+    index++;
+    if (index < count){
+      Console.Write(", ");
+    }
+  }
+  Console.Write("]");
+} 
+
+// Задача 41: Пользователь вводит с клавиатуры M чисел. Посчитайте, сколько чисел больше 0 ввёл пользователь.
+int[] EnterUserArray (int arrayLength) // функция ввода чисел пользователем
+{
+int[] userArray = new int[arrayLength];
+int i = 0;
+ while (i < arrayLength)
+  {
+  Console.WriteLine("Введите число");
+  userArray[i] = int.Parse(Console.ReadLine());
+  i++;
+  }
+ return userArray;
+}
+
+int GreaterThan0 (int[] userArray)
+{
+   int GreaterThan0Counter = 0;
+  for ( int i = 0; i < userArray.Length;  i++ )
+  {
+    if (userArray[i] > 0) GreaterThan0Counter++;
+  }
+  Console.WriteLine();
+  Console.WriteLine("количество введеных чисел больше 0 = " + GreaterThan0Counter);
+  return GreaterThan0Counter;
+}
+
+int G = getUserData("Введите длину массива");
+int[] arrayDisplayG = EnterUserArray (G);
+beautifullDisplayArray (arrayDisplayG);
+int DiffMaxMin = GreaterThan0(arrayDisplayG);
+
+/* Задача 43: Напишите программу, которая найдёт точку пересечения двух прямых, заданных уравнениями 
+y = k1 * x + b1, y = k2 * x + b2; значения b1, k1, b2 и k2 задаются пользователем.*/
+void CrossPoint ()
+{
+Console.WriteLine("Введите значение координаты b1");
+int b1 = int.Parse(Console.ReadLine());
+Console.WriteLine("Введите значение координаты k1");
+int k1 = int.Parse(Console.ReadLine());
+Console.WriteLine("Введите значение координаты b2");
+int b2 = int.Parse(Console.ReadLine());
+Console.WriteLine("Введите значение координаты k2");
+int k2 = int.Parse(Console.ReadLine());
+int x = (b2 - b1) / (k1 - k2);
+int y = k1 * x + b2;
+Console.WriteLine("координаты точки пересечения двух прямых [" + x + "," + y + "]");
+return;
+}
+CrossPoint();
