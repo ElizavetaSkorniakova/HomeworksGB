@@ -1,0 +1,124 @@
+int getUserData(string message)
+{
+    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+    Console.WriteLine(message);
+    Console.ResetColor();
+    int userData = int.Parse(Console.ReadLine()!);
+    return userData;
+}
+
+void showData(string messageStart, int data)
+{
+    Console.Write(messageStart);
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.WriteLine(data);
+    Console.ResetColor();
+}
+
+void beautifullDisplayArray(int[] array)
+{
+  int count = array.Length;
+  int index = 0;
+  Console.Write("[");
+  while(index < count){
+    Console.Write(array[index]);
+    index++;
+    if (index < count){
+      Console.Write(", ");
+    }
+  }
+  Console.Write("]");
+} 
+
+// Задача 34: Задайте массив заполненный случайными положительными трёхзначными числами. Напишите программу, которая покажет количество чётных чисел в массиве.
+int[] arrayDisplay34 (int lenArray34)
+{
+int[] randomArray34 = new int[lenArray34];
+for (int i = 0; i < randomArray34.Length; i++)
+{
+    randomArray34 [i] = new Random().Next(100,999);
+}
+return randomArray34;
+}
+
+int countOfMultOfTwo (int[] array)
+{
+int countNum = 0;
+for (int i = 0; i < array.Length; i++) 
+{
+if (array [i] % 2 == 0) 
+  {
+    countNum = countNum + 1;
+  }
+}
+return countNum;
+}
+
+int D = getUserData("Введите длину массива");
+int[] arrayDisplayD = arrayDisplay34 (D);
+int countfMultOfTwoD = countOfMultOfTwo (arrayDisplayD);
+beautifullDisplayArray (arrayDisplayD);
+showData ("количество четных чисел в массиве = ", countfMultOfTwoD);
+
+// Задача 36: Задайте одномерный массив, заполненный случайными числами. Найдите сумму элементов, стоящих на нечётных позициях.
+int[] arrayDisplay36 (int lenArray)
+{
+int[] randomArray36 = new int[lenArray];
+for (int i = 0; i < randomArray36.Length; i++)
+{
+    randomArray36 [i] = new Random().Next(0,10);
+}
+return randomArray36;
+}
+
+int sumOfMultOfTwo (int[] randomArray36)
+{
+  int sumNum = 0;
+  for (int i = 0; i < randomArray36.Length; i = i + 2)
+  {
+    sumNum = sumNum + randomArray36 [i];
+  }
+return sumNum;
+}
+
+int C = getUserData("Введите длину массива");
+int[] arrayDisplayC = arrayDisplay36 (C);
+int sumOfMultOfTwoC = sumOfMultOfTwo (arrayDisplayC);
+beautifullDisplayArray (arrayDisplayC);
+showData ("сумма чисел на четных позициях массива = ", sumOfMultOfTwoC);
+
+// Задача 38: Задайте массив вещественных чисел. Найдите разницу между максимальным и минимальным элементов массива.
+int[] EnterUserArray (int arrayLength) // функция ввода массива пользователем
+{
+int[] userArray = new int[arrayLength];
+int i = 0;
+ while (i < arrayLength)
+  {
+  Console.WriteLine("Введите " + i +" элемент массива");
+  userArray[i] = int.Parse(Console.ReadLine());
+  Console.WriteLine();
+  i++;
+  }
+ return userArray;
+}
+
+int MaxMinDiff (int[] userArray)
+{
+  int min = userArray[0];
+  int max = userArray[0];
+  int diff = 0;
+  for ( int i = 1; i < userArray.Length;  i++ )
+  {
+    if (userArray[i] > max) max = userArray[i];
+    if (userArray[i] < min) min = userArray[i];
+  }
+  diff = max - min;
+  Console.WriteLine();
+  Console.WriteLine("max =" + max + ", min =" + min + ", разнича max и min=" + diff);
+  return diff;
+}
+
+int G = getUserData("Введите длину массива");
+int[] arrayDisplayG = EnterUserArray (G);
+beautifullDisplayArray (arrayDisplayG);
+int DiffMaxMin = MaxMinDiff(arrayDisplayG);
