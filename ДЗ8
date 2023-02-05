@@ -1,0 +1,277 @@
+// заголовок задачи
+void zadacha(string message)
+{
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine(message);
+    Console.ResetColor();
+    return;
+}
+
+// ввод данных пользователем
+int GetUserData(string message)
+{
+    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+    Console.WriteLine(message);
+    Console.ResetColor();
+    int data = int.Parse(Console.ReadLine()!);
+    return data;
+}
+
+// окраска шрифта в цвет
+void printInColor (string data)
+{
+    Console.ForegroundColor = ConsoleColor.Blue;
+    Console.Write(data);
+    Console.ResetColor();
+    return;
+}
+
+// создание 2D массива
+int[,] User2DIntegerArray (int rowsQty, int columnsQty, int start, int finish) 
+{
+    int[,] arrayInteger = new int[rowsQty, columnsQty];
+      for (int i = 0; i < rowsQty; i++) 
+    {
+        for (int j = 0; j < columnsQty; j++)
+        {
+            arrayInteger[i,j] = new Random().Next(start, finish+1);
+        };
+    }
+return arrayInteger;
+}
+
+// вывод 2D массива (целочисленного)
+void print2DIntegerArray (int[,] arrayInteger) 
+{
+    Console.Write(" \t");
+    for (int j = 0; j < arrayInteger.GetLength(1); j++)
+    {
+        printInColor(j + "\t");
+    }
+    Console.WriteLine();
+    for (int i = 0; i < arrayInteger.GetLength(0); i++) 
+    {
+        printInColor(i + "\t");
+        for (int j = 0; j < arrayInteger.GetLength(1); j++)
+        {
+            Console.Write(arrayInteger[i,j]+"\t");
+        }
+    Console.WriteLine();
+    }
+return;
+}
+
+// Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
+int[,] sortedArray (int[,] array)
+{
+Console.WriteLine("Упорядоченный массив (каждая строка по убиыванию)");
+  for (int i = 0; i < array.GetLength(0); i++)
+  {
+    for (int j = i; j < array.GetLength(1); j++)
+        {
+          for (int z = 0; z < array.GetLength(1)-1; z++)
+          {
+          if (array[i,z] < array[i,z+1]) 
+            {
+            int temp = array[i,z+1];
+            array[i,z+1] = array[i,z];
+            array[i,z] = temp;
+            }
+          }
+        }
+  }
+  return array;
+}
+
+Console.WriteLine();
+zadacha("Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива");
+int rowsQuantity54 = GetUserData ("Введите количество строк матрицы");
+int columnsQuantity54 = GetUserData ("Введите количество столбцов матрицы");
+int[,] initialUserArray = User2DIntegerArray(rowsQuantity54, columnsQuantity54, 0, 10);
+print2DIntegerArray(initialUserArray);
+int[,] sortedUserArray = sortedArray(initialUserArray);
+print2DIntegerArray(sortedUserArray);
+
+/* Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
+Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка */
+
+void checkOfArray (int rowsQty, int columnsQty) // функция проверки массива на прямоугольность
+{
+  if (rowsQty == columnsQty) 
+  {
+    Console.WriteLine("Массив не прямоугольный!");
+  }
+  return;
+}
+
+int[,] lineWithLowestSum (int[,] array)
+{
+    Console.WriteLine("Cумма = " + "\t");
+    int[] arrayOfSum = new int[array.GetLength(0)];
+        for (int i = 0; i < array.GetLength(0); i++)
+    {
+        int sum = 0;
+        for (int j = 0; j < array.GetLength(1); j++) 
+        {
+            sum += array[i,j];
+            arrayOfSum[i] = sum;
+        }
+        printInColor(i + "\t");
+        Console.Write ($"{ sum }");
+        Console.WriteLine();
+    };
+    int min = arrayOfSum[0];
+    int rowWithMin = 0;
+    for (int i = 0; i < array.GetLength(0); i++) 
+    {
+      if (arrayOfSum[i] < min)
+      {
+        min = arrayOfSum[i];
+        rowWithMin = i;
+      }
+    }
+    Console.WriteLine("Номер строки с минимальной суммой = " + rowWithMin);
+    return array;
+}
+
+Console.WriteLine();
+zadacha("Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов");
+int rowsQuantity56 = GetUserData ("Введите количество строк матрицы");
+int columnsQuantity56 = GetUserData ("Введите количество столбцов матрицы");
+checkOfArray (rowsQuantity56, columnsQuantity56);
+int[,] UserRectangularArray = User2DIntegerArray(rowsQuantity56, columnsQuantity56, 0, 10);
+print2DIntegerArray(UserRectangularArray);
+int[,] lineWithLowestSumInUserArray = lineWithLowestSum(UserRectangularArray);
+
+// Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+int[,] multiplOfTwoArrays (int[,] array1, int[,] array2) // метод создания общего массива исходя из меньшего по колонкам и строкам массива
+{
+Console.WriteLine();
+Console.WriteLine("Массив произведений");
+int multiplOfTwoArraysColumns = 0;
+int multiplOfTwoArraysRows = 0;
+if (array1.GetLength(0) > array2.GetLength(0))
+{
+  multiplOfTwoArraysColumns = array2.GetLength(0);
+}
+else 
+multiplOfTwoArraysColumns = array1.GetLength(0);
+if (array1.GetLength(1) > array2.GetLength(1))
+{
+  multiplOfTwoArraysRows = array2.GetLength(1);
+}
+else 
+multiplOfTwoArraysRows = array1.GetLength(1);
+int[,] multipleArray = new int[multiplOfTwoArraysColumns,multiplOfTwoArraysRows];
+return multipleArray;
+}
+
+void multiplication (int[,] array1, int[,] array2, int[,] arrayMulti) // метод нахождения произведений двух матриц
+{
+  for (int i = 0; i < arrayMulti.GetLength(0); i++)
+  {
+    for (int j = 0; j < arrayMulti.GetLength(1); j++)
+    {
+      arrayMulti[i,j] = array1[i,j] * array2[i,j];
+    }
+  }
+  return;
+}
+
+Console.WriteLine();
+zadacha("Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц");
+int rowsQuantity581 = GetUserData ("Введите количество строк первой матрицы для поиска произведений");
+int columnsQuantity581 = GetUserData ("Введите количество столбцов первой матрицы для поиска произведений");
+int[,] UserFirstArray = User2DIntegerArray(rowsQuantity581, columnsQuantity581, 0, 10);
+print2DIntegerArray(UserFirstArray);
+int rowsQuantity582 = GetUserData ("Введите количество строк второй матрицы для поиска произведений");
+int columnsQuantity582 = GetUserData ("Введите количество столбцов второй матрицы для поиска произведений");
+int[,] UserSecondArray = User2DIntegerArray(rowsQuantity582, columnsQuantity582, 0, 10);
+print2DIntegerArray(UserSecondArray);
+int[,] MultipleOfUserArrays = multiplOfTwoArrays(UserFirstArray, UserSecondArray);
+multiplication(UserFirstArray, UserSecondArray, MultipleOfUserArrays);
+print2DIntegerArray(MultipleOfUserArrays);
+
+/* Задача 60. Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно 
+выводить массив, добавляя индексы каждого элемента.*/
+
+// генерация трехмернго массива
+int[,,] create3DArray (int x, int y, int z, int start, int finish) 
+{
+    int[,,] array3D = new int[x, y, z];
+    int counter = 10;
+      for (int i = 0; i < x; i++) 
+    {
+        for (int j = 0; j < y; j++)
+        {
+          for (int k = 0; k < z; k++)
+        {
+            array3D[i,j,k] += counter;
+            ++counter;
+        };
+        }
+    }
+return array3D;
+}
+
+// вывод 3D массива
+void print3DArray (int[,,] array3D) 
+{
+  for (int i = 0; i< array3D.GetLength(0); i++)
+    {
+      for (int j = 0; j < array3D.GetLength(1); j++)
+        {
+          Console.WriteLine();
+          for (int k = 0; k < array3D.GetLength(2); k++) 
+          {
+        
+              Console.Write($"{array3D[i, j, k]}({i},{j},{k}) " + "\t");
+          
+          }
+    }
+    }
+Console.WriteLine();
+return;
+}
+
+Console.WriteLine();
+zadacha("Задача 60.Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента");
+int x = GetUserData ("Введите количество строк матрицы");
+int y = GetUserData ("Введите количество столбцов матрицы");
+int z = GetUserData ("Введите глубину матрицы");
+int[,,] User3DArray = create3DArray(x, y, z, 10, 99);
+print3DArray(User3DArray);
+
+// Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
+
+int[,] spiralArray (int rowsQty, int columnsQty) 
+{
+    int[,] arraySpiral = new int[rowsQty, columnsQty];
+    int value = 1;
+    int i = 0;
+    int j =0;
+    while (value <= rowsQty * columnsQty)
+    {
+        arraySpiral[i,j] = value;
+        if (i <= j + 1 && i + j < columnsQty - 1)
+        {
+            ++j;
+        }
+        else if (i < j && i + j >= rowsQty - 1)
+        {
+            ++i;
+        }
+        else if (i >= j && i + j > columnsQty - 1)
+        {
+            --j;
+        }
+        else --i;
+        ++value;
+    }
+return arraySpiral;
+}
+
+Console.WriteLine();
+zadacha("Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4");
+int[,] UserSpiralArray = spiralArray(4, 4);
+print2DIntegerArray(UserSpiralArray);
