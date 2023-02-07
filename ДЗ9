@@ -1,0 +1,55 @@
+int getUserData (string message)
+{
+    Console.WriteLine(message);
+    int N = int.Parse(Console.ReadLine()!);
+    return N;
+}
+
+// Задача 64: Задайте значение N. Напишите программу, которая выведет все натуральные числа в промежутке от N до 1. Выполнить с помощью рекурсии.
+int Number = getUserData("Введине число N");
+FromNto1(Number);
+
+void FromNto1 (int Number)
+{
+    if (Number == 0)
+    {
+        return;
+    };
+    Console.Write(Number + ",");
+    FromNto1(Number - 1);
+}
+
+// Задача 66: Задайте значения M и N. Напишите программу, которая найдёт сумму натуральных элементов в промежутке от M до N.
+int numM = getUserData("Введине число M");
+int numN = getUserData("Введине число N");
+int start = Math.Min(numM, numN);
+int finish = Math.Max(numM,numN);
+int summa = sumFromMtoN(start, finish);
+
+// Console.WriteLine($"Сумма значений от " + start + " до " + finish +" равна " +summa);
+
+int sumFromMtoN(int start, int finish)
+{
+    if (start == finish)
+    {
+        return start;
+    }
+    return start + sumFromMtoN(start + 1, finish);
+}
+
+
+// Задача 68: Напишите программу вычисления функции Аккермана с помощью рекурсии. Даны два неотрицательных числа m и n.
+
+int m = getUserData("Введите m: ");
+int n = getUserData("Введите n: ");
+
+int AkkermanFunction = Akkerman(m, n);
+
+Console.Write($"Функция Аккермана = " + AkkermanFunction);
+
+int Akkerman(int m, int n)
+{
+  if (m == 0) return n + 1;
+  else if (n == 0) return Akkerman(m - 1, 1);
+  else return Akkerman(m - 1, Akkerman(m, n - 1));
+}
